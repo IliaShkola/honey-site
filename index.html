@@ -11,6 +11,20 @@
     *{margin:0;padding:0;box-sizing:border-box;}
 
     /* ======== GLOBAL ======== */
+
+    :root {
+      --primary-yellow: #FFD700;
+      --yellow-hover: #FFC107;
+      --yellow-light: #FFF9C4;
+      --terminal-bg: #0f0f0f;
+      --terminal-green: #00ff00;
+      --text-dark: #333;
+      --text-medium: #555;
+      --text-light: #777;
+      --bg-light: #f7f7f7;
+      --border: #ddd;
+    }
+
     body{
       font-family:'JetBrains Mono', monospace;
       background:#ffffff;
@@ -28,7 +42,21 @@
       font-size:96px;font-weight:700;letter-spacing:8px;color:#333;
     }
     .title-container{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:12px;}
-    .bee-logo img{width:100px;height:auto;image-rendering:pixelated;}
+    .bee-logo img{width:125px;height:auto;}
+
+        .bee-logo img {
+      animation: fly 1s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes fly {
+      0%, 100% {
+        top: 0;
+      }
+      50% {
+        top: -5px;
+      }
+    }
 
     /* Slogan */
     .slogan{font-size:28px;font-weight:700;text-align:center;letter-spacing:1px;color:#333;margin:32px 0 48px;}
@@ -36,8 +64,17 @@
     /* ======== SECTIONS ======== */
     .section{position:relative;margin-bottom:60px;}
     .section-title{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;color:#333;text-align:left;}
+    .section-title::before {
+      content: '> ';
+      color: var(--primary-yellow);
+    }
     .description{color:#555;line-height:1.8;margin-bottom:16px;}
-    .highlight{font-weight:700;color:#333;}
+    .highlight{
+      font-weight:700;
+      color: var(--text-dark);
+      background: var(--yellow-light);
+      padding: 2px 4px;
+    }
 
     /* ======== FULL-WIDTH PANELS ======== */
     .panel-yellow,
@@ -46,6 +83,8 @@
       margin-left:calc(-50vw + 50%);
       margin-right:calc(-50vw + 50%);
       padding:60px 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .panel-yellow{background:#FFF9C4;}
     .panel-light{background:#F7F7F7;}
@@ -70,9 +109,20 @@
     .feature-row{display:flex;flex-wrap:wrap;align-items:center;gap:40px;}
     .feature-row:nth-child(even){flex-direction:row-reverse;}
     .feature-text{flex:1 1 320px;}
-    .feature-text h3{font-size:20px;font-weight:700;margin-bottom:12px;}
+    .feature-text h3{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:12px;
+      font-family:'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .feature-text h3::before {
+      content: '🐝 ';
+      color: var(--terminal-green);
+    }
     .feature-text p{color:#555;line-height:1.8;}
-    .feature-img{flex:1 1 320px;}
+    .feature-img{flex:1 1 250px;}
     .feature-img img{width:100%;height:auto;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);cursor:pointer;transition:transform .2s ease;}
     .feature-img img:hover{transform:scale(1.02);} 
 
@@ -100,7 +150,7 @@
     <!-- ======== HEADER ======== -->
     <div class="title-container">
       <div class="ascii-title">HONEY</div>
-      <div class="bee-logo"><img src="stat/bee8bit2.png" alt="Honey logo"></div>
+      <div class="bee-logo"><img src="stat/bee.png" alt="Honey logo"></div>
     </div>
 
     <!-- SLOGAN -->
@@ -117,11 +167,18 @@
   <section class="section panel-light">
     <div class="container">
       <h2 class="section-title">Description</h2>
-      <p class="description">
-        Easiest, fastest and stylish way to check and export data from <span class="highlight">IFC files</span>.<br>
-        A Python-based TUI desktop app that helps you browse and export data from IFC files quickly and beautifully.<br>
-        Built with <span class="highlight">IfcOpenShell</span> and <span class="highlight">Textual</span>.
-      </p>
+<p class="description">
+  <strong>Honey</strong> is the sweetest way to extract exactly what you need from <span class="highlight">IFC files</span>.
+</p>
+<p class="description">
+  It’s a Python-based terminal app with a sleek TUI that lets you cherry-pick parameters from selected <span class="highlight">categories</span> and <span class="highlight">property sets</span>, and export only the data you actually care about.
+</p>
+<p class="description">
+  Say goodbye to data overload — get clean, structured results exported directly to <span class="highlight">XLSX</span>.
+</p>
+<p class="description">
+  Designed for smooth workflows with <span class="highlight">Vim-style navigation</span>, built on top of <span class="highlight">IfcOpenShell</span> and <span class="highlight">Textual</span>.
+</p>
     </div>
   </section>
 
@@ -133,43 +190,34 @@
         <!-- Row 1 -->
         <div class="feature-row">
           <div class="feature-text">
-            <h3>Browse &amp; Explore</h3>
+            <h3>Browse &amp; Explore data</h3>
             <p>Drill down into your IFC model with an intuitive TUI explorer that lets you jump between entities instantly.</p>
           </div>
           <div class="feature-img">
-            <img src="stat/Screenshot 2025-05-27 145601.png" alt="Browse IFC file structure">
+            <img src="stat/scr1.png" alt="Browse IFC file structure">
           </div>
         </div>
         <!-- Row 2 -->
         <div class="feature-row">
           <div class="feature-text">
-            <h3>Export Anywhere</h3>
-            <p>Export data to <strong>JSON</strong>, <strong>CSV</strong> or <strong>XML</strong> with a single command to slot straight into your workflow.</p>
+<h3>Export to XLSX</h3>
+<p>Export your data to <strong>XLSX</strong> with a single button.</p>
           </div>
           <div class="feature-img">
-            <img src="stat/Screenshot 2025-05-27 145611.png" alt="Export data screenshot">
+            <img src="stat/scr2.png" alt="Export data screenshot">
           </div>
         </div>
         <!-- Row 3 -->
         <div class="feature-row">
           <div class="feature-text">
-            <h3>Cross-platform Ready</h3>
-            <p>Runs natively on <strong>Windows</strong>, <strong>macOS</strong> and <strong>Linux</strong> – just download and go.</p>
+            <h3>Looks cool</h3>
+            <p>Choose from many of themes, or make your own.</p>
           </div>
           <div class="feature-img">
-            <img src="stat/Screenshot 2025-05-27 145626.png" alt="Cross-platform support screenshot">
+            <img src="stat/scr3.png" alt="Cross-platform support screenshot">
           </div>
         </div>
         <!-- Row 4 -->
-        <div class="feature-row">
-          <div class="feature-text">
-            <h3>Blazing Fast &amp; Lightweight</h3>
-            <p>Powered by pure-Python and <strong>IfcOpenShell</strong>, Honey opens even large models in seconds while staying under&nbsp;10&nbsp;MB.</p>
-          </div>
-          <div class="feature-img">
-            <img src="stat/Screenshot 2025-05-27 145601.png" alt="Performance screenshot">
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -185,9 +233,45 @@
 
   <!-- ======== FOOTER ======== -->
     <!-- FOOTER BUTTONS & COPYRIGHT -->
-    <div class="buttons-section">
-      <a href="https://github.com/IliaShkola/honey" class="button button-secondary">View on GitHub</a>
-      <a href="https://github.com/IliaShkola/honey/releases" class="button button-secondary">Download Release</a>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Less mess, more honey</h2>
+      <div class="buttons-section">
+        <a href="https://github.com/IliaShkola/honey" class="button">Star on GitHub</a>
+        <a href="https://github.com/IliaShkola/honey/releases" class="button button-secondary">Download Now</a>
+      </div>
     </div>
+  </section>
 
     <div class="footer">Honey made with ❤️ by <span class="highlight">Ilia Shkola</span> • Open Source under GPL 3.0 • Built for the IFC community</div>
+
+
+      <!-- ======== LIGHTBOX ======== -->
+  <div class="modal" id="modal">
+    <img id="modal-img" src="" alt="">
+  </div>
+
+  <script>
+    // Lightbox functionality
+    document.querySelectorAll('.feature-img img').forEach(img => {
+      img.addEventListener('click', () => {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        modalImg.src = img.src;
+        modal.classList.add('open');
+      });
+    });
+
+    document.getElementById('modal').addEventListener('click', () => {
+      document.getElementById('modal').classList.remove('open');
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('modal').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
