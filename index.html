@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HoneyIFC – IFC Data to Excel, Simplified</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- SEO  -->
-  <meta name="description" content="HoneyIFC - Python terminal app for extracting data from IFC files. Export to XLSX with intuitive TUI interface. Built with IfcOpenShell and Textual.">
-  <meta name="keywords" content="IFC, BIM, Python, Excel export, IfcOpenShell, construction data, building information modeling">
+  
+  <!-- Updated SEO Meta Tags -->
+  <title>Export IFC to Excel - Select Only What You Need | HoneyIFC</title>
+  <meta name="description" content="Free tool to export selected IFC data to Excel. Cherry-pick parameters from IFC files instead of getting massive data dumps. Python-based, open source.">
+  <meta name="keywords" content="IFC to Excel, IFC export, selective IFC export, BIM data extraction, IFC parameters, IfcOpenShell, how to export IFC to Excel">
   <meta name="author" content="Ilia Shkola">
 
-  <!-- Open Graph  -->
-  <meta property="og:title" content="HoneyIFC – IFC Data to Excel, Simplified">
-  <meta property="og:description" content="The sweetest way to extract data from IFC files and export to Excel">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Export IFC to Excel - Select Only What You Need | HoneyIFC">
+  <meta property="og:description" content="Stop drowning in massive Excel dumps. Cherry-pick exactly the parameters you want from IFC models.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://honeyifc.io">
   <meta property="og:image" content="https://honeyifc.io/stat/bee.png">
@@ -20,8 +22,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="HoneyIFC – IFC Data to Excel, Simplified">
-  <meta name="twitter:description" content="The sweetest way to extract data from IFC files and export to Excel">
+  <meta name="twitter:title" content="Export IFC to Excel - Select Only What You Need | HoneyIFC">
+  <meta name="twitter:description" content="Stop drowning in massive Excel dumps. Cherry-pick exactly the parameters you want from IFC models.">
   <meta name="twitter:image" content="https://honeyifc.io/stat/bee.png">
 
   <!-- Canonical URL -->
@@ -34,7 +36,6 @@
     *{margin:0;padding:0;box-sizing:border-box;}
 
     /* ======== GLOBAL ======== */
-
     :root {
       --primary-yellow: #FFD700;
       --yellow-hover: #FFC107;
@@ -54,268 +55,592 @@
       color:#333;
       line-height:1.6;
       font-size:16px;
-      padding:40px 20px;
     }
-    /* Constrain main content but allow background panels to span full width */
-    .container{max-width:1100px;margin:0 auto;}
 
-    /* ======== TYPOGRAPHY / HEADERS ======== */
-    .ascii-title{
-      font-family:'Courier New','Lucida Console',Monaco,monospace;
-      font-size:96px;font-weight:700;letter-spacing:8px;color:#333;
+    .container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+    /* ======== NAVIGATION ======== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 10px 0;
     }
-    .title-container{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:12px;}
-    .bee-logo img{width:125px;height:auto;}
 
-        .bee-logo img {
-      animation: fly 1s ease-in-out infinite;
-      position: relative;
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-medium);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-dark);
+    }
+
+    /* ======== HERO SECTION ======== */
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero .subtitle {
+      font-size: 20px;
+      color: var(--text-medium);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .bee-logo {
+      display: inline-block;
+      margin: 20px 0;
+    }
+
+    .bee-logo img {
+      width: 80px;
+      height: auto;
+      animation: fly 2s ease-in-out infinite;
     }
 
     @keyframes fly {
-      0%, 100% {
-        top: 0;
-      }
-      50% {
-        top: -5px;
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* Slogan */
-    .slogan{font-size:28px;font-weight:700;text-align:center;letter-spacing:1px;color:#333;margin:32px 0 48px;}
+    /* ======== BUTTONS ======== */
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 8px;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary-yellow);
+      color: var(--text-dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-dark);
+      border: 2px solid var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+      background: var(--text-dark);
+      color: white;
+    }
 
     /* ======== SECTIONS ======== */
-    .section{position:relative;margin-bottom:60px;}
-    .section-title{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;color:#333;text-align:left;}
-    .section-title::before {
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-alt {
+      background: var(--bg-light);
+    }
+
+    .section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .section h2::before {
       content: '> ';
       color: var(--primary-yellow);
     }
-    .description{color:#555;line-height:1.8;margin-bottom:16px;}
-    .highlight{
-      font-weight:700;
+
+    /* ======== DESCRIPTION ======== */
+    .description-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .description-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--text-medium);
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+      list-style: none;
+    }
+
+    .features-list li {
+      padding: 10px 0;
       color: var(--text-dark);
-      background: var(--yellow-light);
-      padding: 2px 4px;
+      font-weight: 500;
     }
 
-    /* ======== FULL-WIDTH PANELS ======== */
-    .panel-yellow,
-    .panel-light{
-      /* pull background edge-to-edge */
-      margin-left:calc(-50vw + 50%);
-      margin-right:calc(-50vw + 50%);
-      padding:60px 20px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .panel-yellow{background:#FFF9C4;}
-    .panel-light{background:#F7F7F7;}
-
-    /* ======== BUTTONS ======== */
-    a.button{
-      display:inline-block;text-decoration:none;
-      padding:12px 24px;font-size:16px;font-weight:700;cursor:pointer;
-      background:#FFD700;color:#333;margin:8px 8px 8px 0;transition:all .2s ease;
-    }
-    a.button:hover{background:#FFC107;transform:translateY(-1px);}
-    .button-secondary{background:#fff;color:#333;border:2px solid #333;}
-    .button-secondary:hover{background:#333;color:#fff;}
-    .buttons-section{text-align:center;margin:32px 0;}
-
-    /* ======== COMMAND BLOCK ======== */
-    .command-block{background:#f5f5f5;border-left:4px solid #333;padding:16px;font-family:inherit;color:#333;margin:16px 0;}
-    .prompt{color:#666;}
-
-    /* ======== FEATURES LAYOUT ======== */
-    .features-wrapper{display:flex;flex-direction:column;gap:80px;}
-    .feature-row{display:flex;flex-wrap:wrap;align-items:center;gap:40px;}
-    .feature-row:nth-child(even){flex-direction:row-reverse;}
-    .feature-text{flex:1 1 320px;}
-    .feature-text h3{
-      font-size:20px;
-      font-weight:700;
-      margin-bottom:12px;
-      font-family:'JetBrains Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .feature-text h3::before {
-      content: '🐝 ';
+    .features-list li::before {
+      content: '✓ ';
       color: var(--terminal-green);
+      margin-right: 8px;
     }
-    .feature-text p{color:#555;line-height:1.8;}
-    .feature-img{flex:1 1 250px;}
-    .feature-img img{width:100%;height:auto;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);cursor:pointer;transition:transform .2s ease;}
-    .feature-img img:hover{transform:scale(1.02);} 
 
-    /* ======== LIGHTBOX ======== */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:1000;}
-    .modal.open{opacity:1;pointer-events:auto;}
-    .modal img{max-width:90%;max-height:90%;border-radius:4px;box-shadow:0 4px 24px rgba(0,0,0,.6);} 
+    /* ======== HOW IT WORKS ======== */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .step h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .step p {
+      color: var(--text-medium);
+      line-height: 1.6;
+    }
+
+    /* ======== COMPARISON ======== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .other-tools, .honey-ifc {
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    .other-tools {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+    }
+
+    .honey-ifc {
+      background: #e8f5e8;
+      border-left: 4px solid #4caf50;
+    }
+
+    .other-tools h3, .honey-ifc h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .other-tools ul, .honey-ifc ul {
+      list-style: none;
+    }
+
+    .other-tools li, .honey-ifc li {
+      padding: 5px 0;
+      color: var(--text-medium);
+    }
+
+    /* ======== DEMO SECTION ======== */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .demo-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .demo-item img:hover {
+      transform: scale(1.02);
+    }
+
+    .video-container {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ======== DOCS PLACEHOLDER ======== */
+    .docs-placeholder {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--yellow-light);
+      border-radius: 8px;
+      margin: 40px 0;
+    }
+
+    .docs-placeholder h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+
+    .docs-placeholder p {
+      color: var(--text-medium);
+      margin-bottom: 20px;
+    }
+
+    /* ======== CTA SECTION ======== */
+    .cta {
+      text-align: center;
+      padding: 80px 0;
+      background: var(--yellow-light);
+    }
+
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      color: var(--text-medium);
+      margin-bottom: 40px;
+    }
 
     /* ======== FOOTER ======== */
-    .footer{text-align:center;color:#999;font-size:12px;margin-top:60px;padding-top:20px;border-top:1px solid #e0e0e0;}
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    /* ======== LIGHTBOX ======== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    }
 
     /* ======== RESPONSIVE ======== */
-    @media(max-width:768px){
-      .ascii-title{font-size:64px;letter-spacing:4px;}
-      .title-container{gap:12px;}
-      .bee-logo img{width:80px;}
-      body{font-size:13px;padding:20px 16px;}
-      a.button{display:block;margin:8px 0;text-align:center;}
-      .panel-yellow,.panel-light{padding:40px 16px;}
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero .subtitle {
+        font-size: 16px;
+      }
+      
+      .vs-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .btn {
+        display: block;
+        margin: 10px auto;
+        max-width: 280px;
+      }
+      
+      .section {
+        padding: 40px 0;
+      }
     }
   </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "HoneyIFC",
-    "alternateName": ["Honey IFC", "HoneyIFC App", "Honey", "Honey IFC App"],
     "applicationCategory": "DeveloperTool",
-    "applicationSubCategory": "EngineeringApplication",
     "operatingSystem": ["Windows", "macOS", "Linux"],
-    "softwareVersion": "1.0.1",
-    "programmingLanguage": "Python",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": "Lightweight terminal app to extract BIM/IFC data and export it to XLSX in seconds.",
+    "description": "Free tool to export selected IFC data to Excel. Cherry-pick parameters from IFC files instead of getting massive data dumps.",
     "downloadUrl": "https://github.com/IliaShkola/honey-ifc/releases",
     "codeRepository": "https://github.com/IliaShkola/honey-ifc",
-    "license": "https://www.gnu.org/licenses/gpl-3.0.html",
-    "keywords": ["IFC", "BIM", "Excel export", "IfcOpenShell", "construction"],
+    "keywords": ["IFC to Excel", "IFC export", "selective IFC export", "BIM data extraction"],
     "author": {
       "@type": "Person",
-      "name": "Ilia Shkola",
-      "url": "https://www.linkedin.com/in/ishkolabim/"
+      "name": "Ilia Shkola"
     }
   }
   </script>
-
-
 </head>
 <body>
-  <div class="container">
-    <!-- ======== HEADER ======== -->
-    <div class="title-container">
-      <h1 class="ascii-title">HONEY</h1>
-      <div class="bee-logo"><img src="stat/bee.png" alt="Honey logo"></div>
-    </div>
-
-    <!-- SLOGAN -->
-    <div class="slogan">Enjoy your IFC</div>
-
-    <!-- CTA BUTTONS -->
-    <div class="buttons-section">
-      <a href="https://github.com/IliaShkola/honey-ifc" class="button">View on GitHub</a>
-      <a href="https://github.com/IliaShkola/honey-ifc/releases" class="button button-secondary">Download Release</a>
-    </div>
-  </div><!-- /container -->
-
-  <!-- ======== DESCRIPTION (LIGHT PANEL) ======== -->
-  <section class="section panel-light">
+  <!-- ======== NAVIGATION ======== -->
+  <nav>
     <div class="container">
-      <h2 class="section-title">Description</h2>
-<p class="description">
-  <strong>HoneyIFC</strong> is the sweetest way to extract exactly what you need from <span class="highlight">IFC files</span>.
-</p>
-<p class="description">
-  It’s a Python-based terminal app with a sleek TUI that lets you cherry-pick parameters from selected <span class="highlight">categories</span> and <span class="highlight">property sets</span>, and export only the data you actually care about.
-</p>
-<p class="description">
-  Say goodbye to data overload — get clean, structured results exported directly to <span class="highlight">XLSX</span>.
-</p>
-<p class="description">
-  Designed for smooth workflows with <span class="highlight">Vim-style navigation</span>, built on top of <span class="highlight">IfcOpenShell</span> and <span class="highlight">Textual</span>.
-</p>
+      <div class="nav-logo">🐝 HoneyIFC</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <!-- <li><a href="#docs">Docs</a></li> -->
+      </ul>
     </div>
-  </section>
+  </nav>
 
-  <!-- ======== FEATURES (YELLOW PANEL) ======== -->
-  <section class="section panel-light" id="features">
+  <!-- ======== HERO SECTION ======== -->
+  <section class="hero" id="home">
     <div class="container">
-      <h2 class="section-title">Features</h2>
-      <div class="features-wrapper">
-        <!-- Row 1 -->
-        <div class="feature-row">
-          <div class="feature-text">
-            <h3>Browse &amp; Explore data</h3>
-            <p>Drill down into your IFC model with an intuitive TUI explorer that lets you jump between entities instantly.</p>
-          </div>
-          <div class="feature-img">
-            <img src="stat/scr1.png" alt="Honey app interface showing IFC file structure browser with property sets and categories">
-          </div>
-        </div>
-        <!-- Row 2 -->
-        <div class="feature-row">
-          <div class="feature-text">
-<h3>Export to XLSX</h3>
-<p>Export your data to <strong>XLSX</strong> with a single button.</p>
-          </div>
-          <div class="feature-img">
-            <img src="stat/scr2.png" alt="Export data from selected category and pset to XLSX file">
-          </div>
-        </div>
-        <!-- Row 3 -->
-        <div class="feature-row">
-          <div class="feature-text">
-            <h3>Looks cool</h3>
-            <p>Choose from many of themes, or make your own.</p>
-          </div>
-          <div class="feature-img">
-            <img src="stat/scr3.png" alt="TUI interface looks cool">
-          </div>
-        </div>
-        <!-- Row 4 -->
+      <h2>Export Only What You Need from IFC Files to Excel</h2>
+      <p class="subtitle">Stop drowning in massive Excel dumps. Cherry-pick exactly the parameters and properties you want from IFC models. Get clean, focused data in seconds.</p>
+      
+      <div class="bee-logo">
+        <h1>HoneyIFC</h1>
+        <img src="stat/bee.png" alt="HoneyIFC Bee Logo">
+      </div>
+
+      <div>
+        <a href="https://github.com/IliaShkola/honey-ifc" class="btn btn-primary">Get HoneyIFC Free</a>
+        <a href="#demo" class="btn btn-secondary">See Demo</a>
       </div>
     </div>
   </section>
 
-<!-- ======== VIDEO (WHITE) ======== -->
-<section class="section panel-light" id="video">
+  <!-- ======== DESCRIPTION ======== -->
+  <section class="section section-alt" id="features">
+    <div class="container">
+      <h2>Finally, an IFC exporter that doesn't overwhelm you with data</h2>
+      <div class="description-content">
+        <p>Most tools dump your entire IFC model into Excel – thousands of rows of stuff you don't need. HoneyIFC lets you drill down and select only specific categories, property sets, and parameters that matter to your workflow.</p>
+        
+        <ul class="features-list">
+          <li>Choose your data, not everything</li>
+          <li>Clean XLSX export in one click</li>
+          <li>Vim-style navigation for power users</li>
+          <li>Built on IfcOpenShell, 100% free & open source</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+<!-- ======== HOW IT WORKS ======== -->
+<section class="section" id="how-it-works">
   <div class="container">
-    <h2 class="section-title">Video Demo</h2>
-    <div style="width:50%;margin:0 auto;">
-      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
-        <iframe src="https://www.youtube.com/embed/bdocVAjy6Fc"
-                title="Honey - IFC to Excel Export Demo"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                frameborder="0" allowfullscreen>
-        </iframe>
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Launch from Folder</h3>
+        <p>Right-click on any empty space in a folder containing IFC files and select <strong>“Open with HoneyIFC”</strong>. The app will automatically list all IFC files in that folder.</p>
+      </div>
+      <div class="step">
+        <h3>2. Browse & Select</h3>
+        <p>Navigate through categories and property sets. Pick only what you need – categories and psets.</p>
+      </div>
+      <div class="step">
+        <h3>3. Export Clean Data</h3>
+        <p>Get a focused Excel file with exactly your selected data. No cleanup required.</p>
       </div>
     </div>
   </div>
 </section>
 
 
-
-  <!-- ======== FOOTER ======== -->
-    <!-- FOOTER BUTTONS & COPYRIGHT -->
-  <section class="section">
+  <!-- ======== COMPARISON ======== -->
+  <section class="section section-alt">
     <div class="container">
-      <h2 class="section-title" style="text-align: center;">Less mess, more honey</h2>
-      <div class="buttons-section">
-        <a href="https://github.com/IliaShkola/honey-ifc" class="button">Star on GitHub</a>
-        <a href="https://github.com/IliaShkola/honey-ifc/releases" class="button button-secondary">Download Now</a>
+      <h2>Stop Wrestling with Bloated Excel Files</h2>
+      <div class="vs-grid">
+        <div class="other-tools">
+          <h3>❌ Other Tools</h3>
+          <ul>
+            <li>Export everything = huge messy files</li>
+            <li>Spend hours cleaning up data</li>
+            <li>Hunt through hundreds of columns</li>
+            <li>Expensive commercial licenses</li>
+          </ul>
+        </div>
+        <div class="honey-ifc">
+          <h3>✅ HoneyIFC</h3>
+          <ul>
+            <li>Export only what you selected</li>
+            <li>Ready-to-use clean data</li>
+            <li>Focus on your actual work</li>
+            <li>Free & open source</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-    <div class="footer">Honey made with ❤️ by <span class="highlight">Ilia Shkola</span> • Open Source under GPL 3.0 • Built for the IFC community</div>
+  <!-- ======== FEATURES & DEMO ======== -->
+  <section class="section" id="demo">
+    <div class="container">
+      <h2>See HoneyIFC in Action</h2>
+      
+      <div class="demo-grid">
+        <div class="demo-item">
+          <img src="stat/scr1.png" alt="Browse IFC data with intuitive interface">
+        </div>
+        <div class="demo-item">
+          <img src="stat/scr2.png" alt="Export selected data to Excel">
+        </div>
+        <div class="demo-item">
+          <img src="stat/scr3.png" alt="Clean terminal interface with themes">
+        </div>
+      </div>
 
+      <div class="video-container">
+        <h3 style="text-align: center; margin-bottom: 20px;">Video Demo</h3>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/bdocVAjy6Fc"
+                  title="HoneyIFC - IFC to Excel Export Demo"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- ======== LIGHTBOX ======== -->
+  <!-- ======== DOCS PLACEHOLDER ========
+  <section class="section section-alt" id="docs">
+    <div class="container">
+      <h2>Documentation</h2>
+      <div class="docs-placeholder">
+        <h3>📚 Documentation Coming Soon</h3>
+        <p>.</p>
+        <p>.</p>
+        <a href="https://github.com/IliaShkola/honey-ifc" class="btn btn-primary">View GitHub README</a>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ======== CTA ======== -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Export Smarter?</h2>
+      <p>Join architects and engineers who stopped fighting with bloated Excel files</p>
+      <div>
+        <a href="https://github.com/IliaShkola/honey-ifc" class="btn btn-primary">Get HoneyIFC Free</a>
+        <a href="https://github.com/IliaShkola/honey-ifc/releases" class="btn btn-secondary">Download Release</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <p>Honey made with ❤️ by <strong>Ilia Shkola</strong> • Open Source under GPL 3.0 • Built for the IFC community</p>
+    </div>
+  </footer>
+
+  <!-- ======== LIGHTBOX ======== -->
   <div class="modal" id="modal">
     <img id="modal-img" src="" alt="">
   </div>
 
   <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
     // Lightbox functionality
-    document.querySelectorAll('.feature-img img').forEach(img => {
+    document.querySelectorAll('.demo-item img').forEach(img => {
       img.addEventListener('click', () => {
         const modal = document.getElementById('modal');
         const modalImg = document.getElementById('modal-img');
